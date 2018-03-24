@@ -81,7 +81,7 @@
             } else if($(this).is('select')) {
                 $(this).find('option:selected').removeAttr("selected");
             } else {
-                $(this).val(''); 
+                $(this).val('');
             }
         });
 
@@ -199,7 +199,7 @@
                 matches[2] = matches[2].substring(1, matches[2].length - 1);
                 var identifiers = matches[2].split('-');
                 identifiers[0] = index;
-                
+
                 if (identifiers.length > 1) {
                     var widgetsOptions = [];
                     $elem.parents('div[data-dynamicform]').each(function(i){
@@ -208,7 +208,10 @@
 
                     widgetsOptions = widgetsOptions.reverse();
                     for (var i = identifiers.length - 1; i >= 1; i--) {
-                        identifiers[i] = $elem.closest(widgetsOptions[i].widgetItem).index();
+                        if(typeof widgetsOptions[i] !== 'undefined') {
+                            identifiers[i] = $elem.closest(widgetsOptions[i].widgetItem).index();
+                        }
+
                     }
                 }
 
@@ -218,6 +221,9 @@
                 newID = id + index;
                 $elem.attr('id', newID);
             }
+            if ($elem.siblings('.btn-modal').length > 0) {
+                $elem.siblings('.btn-modal').attr('data-target','#'+newID);
+            }
         }
 
         if (id !== newID) {
@@ -225,7 +231,7 @@
                 $(this).removeClass('field-' + id).addClass('field-' + newID);
             });
             // update "for" attribute
-            $elem.closest(widgetOptions.widgetItem).find("label[for='" + id + "']").attr('for',newID); 
+            $elem.closest(widgetOptions.widgetItem).find("label[for='" + id + "']").attr('for',newID);
         }
 
         return newID;
