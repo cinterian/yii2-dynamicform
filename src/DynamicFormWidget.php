@@ -92,7 +92,7 @@ class DynamicFormWidget extends \yii\base\Widget
         parent::init();
 
         if (empty($this->widgetContainer) || (preg_match('/^\w{1,}$/', $this->widgetContainer) === 0)) {
-            throw new InvalidConfigException('Invalid configuration to property "widgetContainer". 
+            throw new InvalidConfigException('Invalid configuration to property "widgetContainer".
                 Allowed only alphanumeric characters plus underline: [A-Za-z0-9_]');
         }
         if (empty($this->widgetBody)) {
@@ -216,7 +216,7 @@ class DynamicFormWidget extends \yii\base\Widget
         $js .= "});\n";
         $view->registerJs($js, $view::POS_READY);
 
-        $js = 'jQuery("#' . $this->formId . '").yiiDynamicForm(' . $this->_hashVar .');' . "\n";
+        $js = 'jQuery("#' . $this->formId . '").on(\'afterInit\', function () {jQuery("#' . $this->formId . '").yiiDynamicForm(' . $this->_hashVar .');});' . "\n";
         $view->registerJs($js, $view::POS_LOAD);
     }
 
