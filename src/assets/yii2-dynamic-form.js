@@ -193,7 +193,7 @@
         var id            = $elem.attr('id');
         var newID         = id;
 
-        if (id !== undefined) {
+        if (id !== undefined && !$elem.hasClass('modal')) {
             var matches = id.match(regexID);
             if (matches && matches.length === 4) {
                 matches[2] = matches[2].substring(1, matches[2].length - 1);
@@ -220,9 +220,6 @@
             } else {
                 newID = id + index;
                 $elem.attr('id', newID);
-            }
-            if ($elem.siblings('.btn-modal').length > 0) {
-                $elem.siblings('.btn-modal').attr('data-target','#'+newID);
             }
         }
 
